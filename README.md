@@ -1,6 +1,8 @@
 # libTTduino
 Time Triggered scheduler library for Arduino
 
+For an example project using this library, see http://github.com/chrispbarlow/TTduino
+
 This is an implementation of a Time Triggered Cooperative (TTC) schedule, based on the designs by Dr Michael J. Pont (see http://www.safetty.net/training/beginners)
 
 The project is built in Eclipse Juno (http://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/junosr2) 
@@ -24,5 +26,3 @@ http://chrisbarlow.wordpress.com/2012/09/13/reliable-task-scheduling-with-arduin
 and
 
 http://chrisbarlow.wordpress.com/2012/12/28/further-task-scheduling-with-arduino-avr/
-
-For an example project using this library, see http://github.com/chrispbarlow/TTduino
