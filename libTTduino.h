@@ -11,7 +11,6 @@
 /*
  * Define how often the ticks occur, and the number of tasks in the schedule
  */
-#define TICK_PERIOD (1000) 	/* Tick period in microseconds */
 #define NUM_TASKS 	(10)		/* Total number of tasks */
 
 /*
