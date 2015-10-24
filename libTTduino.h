@@ -22,7 +22,7 @@ typedef volatile void (*task_function_t)(void);
 
 // Prototypes
 void TTduino_runScheduledTasks(void);
-void TTduino_start(uint32_t ticklength);
+void TTduino_start(uint16_t ticklength);
 void TTduino_addTask(task_function_t init, task_function_t task, uint32_t period, uint32_t offset);
 
 

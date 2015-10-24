@@ -4,7 +4,7 @@
 #include <avr/wdt.h>
 #include "libTTduino.h"
 
-static void tick_Start(uint32_t period);
+static void tick_Start(uint16_t period);
 static void sleepNow(void);
 
 bool schedLock = false;
@@ -37,17 +37,17 @@ void TTduino_addTask(task_function_t init, task_function_t task, uint32_t period
 		Tasks[tasksUsed].task_period = period;
 		Tasks[tasksUsed].task_delay = offset;
 	}
+	tasksUsed++;
 }
 
 /*
  * The familiar Arduino setup() function: runs once when you press reset.
  * x_Init() functions contain initialisation code for the related tasks.
  */
-void TTduino_start(uint32_t ticklength){
+void TTduino_start(uint16_t ticklength){
 	int i;
 
 	wdt_disable();			/* Disable the watchdog timer */
-
 	for(i = 0; i < tasksUsed; i++){
 		(*Tasks[i].task_initFunction)();
 	}
@@ -58,7 +58,7 @@ void TTduino_start(uint32_t ticklength){
 /*
  * Start the timer interrupts
  */
-void tick_Start(uint32_t period){
+void tick_Start(uint16_t period){
 	/* initialize Timer1 */
 	cli(); 			/* disable global interrupts */
 	TCCR1A = 0; 	/* set entire TCCR1A register to 0 */
@@ -78,9 +78,7 @@ void tick_Start(uint32_t period){
 /*
  * The ISR runs periodically every TICK_PERIOD
  */
-ISR(TIMER1_COMPA_vect)
-{
-
+ISR(TIMER1_COMPA_vect){
 	sleep_disable();        /* disable sleep */
 	power_all_enable();		/* restore all power */
 	schedLock = false;		/* allow scheduler to run */
@@ -93,7 +91,7 @@ void TTduino_runScheduledTasks(void){
 	sleepNow();															/* Go to sleep. Woken by ISR loop continues, then sleep repeats */
 
 /******************** Nothing happens until interrupt tick *****************************************/
-	if (schedLock == false)												/*schedLock prevents scheduler from running on non-timer interrupt */
+//	if (schedLock == false)												/*schedLock prevents scheduler from running on non-timer interrupt */
 	{
 		for(i = 0; i < tasksUsed; i++)									/* For every task in schedule */
 		{
